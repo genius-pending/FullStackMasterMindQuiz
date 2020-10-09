@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>Javascript Mastermind Quiz</title>
+  <embed src="Mastermind - Theme Tune.mp3" autostart="true" loop="false" width="2" height="0">
+  
+
+  <!-- Boostrap Stylesheet -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <!-- My own CSS stylesheet -->
+  <link rel="stylesheet" href="style.css" media="screen">
+
+</head>
+<body onload="highFunction();">
+    
+        <p class='masthead-intro'>fullstack programming</p>
+        <h1 class='masthead-heading'>Mastermind Quiz</h1>
+        <div class="introduction"> 
+           <p> a special breed of human has been born one who strives to harness the power of coding and change the world. <br>
+                some of these great minds have gone on to become the richest most powerful people in the world! <br> It is no easy feat 
+                you must train your mind and master your craft, pass this trial on your journey to becoming a coding jedi master.
+                <br>Rules:<br>There are 10 questions in total on HTML,CSS,and Javascript  <br>
+                You must get all 10 right to become a coding mastermind  <br>You have 60 seconds, each time you get a question wrong the timer will decrease by 5 seconds <br>
+                The quiz ends when the time elapses or you answer all 10 questions. <br>
+                At the end of the quiz your score will be revealed  <br>good luck </p> </marquee>
+                
+
+          <button id="startquiz" class="btn">Start Quiz</button>
+          <button id="highscore" class="btn" class="hide">High Score</button>
+
+              <div class="container">
+                 <div id="question-container" class="hide">
+                    <div id="question">Question</div>
+                    <div id="answer-buttons" class= "btn-grid">
+                    <button class="btn" id="A">A</button>
+                    <button class="btn" id="B">B</button>
+                    <button class="btn" id="C">C</button>
+                    <button class="btn" id="D">D</button>
+                 </div>
+                 
+                    <button id="nextbtn" class="btn">Next</button>
+                     <p id="timer" class="btn"></p>
+
+                  <p id="scorebox">Score : </p>
+                 </div>
+              </div>
+
+              <div class="container">
+               <div id="highscore-container" class="hide">
+               <div class="row justify-content-center mt-5 pt-3 pb-3">
+                   <div class="col-10 col-lg-8">
+                    <h2>Highscore!</h2>
+                       <p id="user-score"> </p>
+                       <form class="form-group">
+                      </form>
+                   </div>
+               </div>
+            </div>
+         </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</html>
