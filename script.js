@@ -125,7 +125,7 @@ function selectAnswer(e) {
  var currentQuestion= questions[currentQuestionsIndex]
  var answerText= currentQuestion.answers[currentQuestion.correctAnswer]
   if (buttonAnswer == answerText) {
-    alert("correct answer")
+    alert("great that was the correct answer")
     score++
     scorebox.innerText = "Score:  " +score+  "   out of 10"
 
@@ -134,7 +134,8 @@ function selectAnswer(e) {
   }
 
   else{
-    
+    // if user gets the wrong answer then 5 seconds is deducted.
+    alert("sorry that was wrong 5 seconds have been deducted")
       countdown -= 5;
   
   }
