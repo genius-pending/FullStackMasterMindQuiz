@@ -10,6 +10,7 @@ var A3 = document.getElementById('C')
 var A4 = document.getElementById('D')
 var highScore = document.getElementById("highscore")
 var highScoreContainer = document.getElementById("highscore-container")
+var answerfeedback = document.getElementById("answerfeedback")
 
 var shuffledQuestions
 var currentQuestionsIndex = 0
@@ -27,27 +28,34 @@ highScore.addEventListener("click", function () {
   highScoreContainer.classList.remove("hide")
 })
 
-// added an event listener where by once the start button is clicked it disappears and then the actual quiz and timer pop for the user 
-
-startButton.addEventListener("click", () => {
-  
-  startGame()
+function gameOver(){
+  clearInterval(timer);
+  questionContainerEL.classList.add("hide")
+  startButton.innerText = "Try Again"
+  startButton.classList.remove("hide")
+  highScore.classList.remove("hide")
+  prompt("Please enter you name to view highscore")
+  scorebox.innerText =""
+  score = 0
   A1.classList.remove("btn2")
   A2.classList.remove("btn2")
   A3.classList.remove("btn2")
   A4.classList.remove("btn2")
+  answerfeedback.innerText = ""
+  
+}
+
+// added an event listener where by once the start button is clicked it disappears and then the actual quiz and timer pop for the user 
+
+startButton.addEventListener("click", () => {
+
+  startGame()
+ 
 })
 
 //console.log(startButton)
 
-nextButton.addEventListener("click", () => {
-  currentQuestionsIndex++
-  setNextQuestion()
-  A1.classList.remove("btn2")
-  A2.classList.remove("btn2")
-  A3.classList.remove("btn2")
-  A4.classList.remove("btn2")
-})
+
 
 function startGame() {
   startButton.classList.add("hide")
@@ -63,6 +71,7 @@ function startGame() {
 
   // timer set for 60 seconds once timer elapses an alertbox pops up advising user time is up I then changed the inner html of the start button
   // to try again so it restarts the quiz I also populate a high scores chart and a prompt to enter a name that is displayed against the high score
+
   var countdown = 60
   var timer = setInterval(() => {
     countdown = countdown - 1
@@ -71,21 +80,15 @@ function startGame() {
     if (countdown < 0) {
       clearInterval(timer);
       alert("Time is up!")
-      questionContainerEL.classList.add("hide")
-      startButton.innerText = "Try Again"
-      startButton.classList.remove("hide")
-      highScore.classList.remove("hide")
-      prompt("Please enter you name to view highscore")
-
-
-
+      gameOver()
     }
   }, 1000);
 
 
-  //});
+
 
   //console.log('started')
+ 
 
 }
 
@@ -93,13 +96,10 @@ function setNextQuestion() {
   showQuestion(shuffledQuestions[currentQuestionsIndex])
 
   if (currentQuestionsIndex >= questions.length - 1) {
-    questionContainerEL.classList.add("hide")
-    startButton.innerText = "Try Again"
-    startButton.classList.remove("hide")
-    highScore.classList.remove("hide")
-    prompt("Please enter you name to view highscore")
-  }
+    gameOver()
 
+  }
+  //console.log(setNextQuestion)
 }
 
 function showQuestion(question) {
@@ -110,42 +110,59 @@ function showQuestion(question) {
   A3.innerText = question.answers[2]
   A4.innerText = question.answers[3]
 
-  A1.addEventListener("click", selectAnswer)
-  A2.addEventListener("click", selectAnswer)
-  A3.addEventListener("click", selectAnswer)
-  A4.addEventListener("click", selectAnswer)
+  A1.addEventListener("click", selectAnswer);
+  A2.addEventListener("click", selectAnswer);
+  A3.addEventListener("click", selectAnswer);
+  A4.addEventListener("click", selectAnswer);
 
 }
 
 function selectAnswer(e) {
   console.log(e)
- var buttonAnswer = e.target.innerText
- e.target.classList.toggle("btn2")
- console.log(selectedButton)
- var currentQuestion= questions[currentQuestionsIndex]
- var answerText= currentQuestion.answers[currentQuestion.correctAnswer]
+  var buttonAnswer = e.target.innerText
+  console.log(selectedButton)
+  var currentQuestion = questions[currentQuestionsIndex];
+  var answerText = currentQuestion.answers[currentQuestion.correctAnswer];
   if (buttonAnswer == answerText) {
-    alert("great that was the correct answer")
+    currentQuestionsIndex++
+    setNextQuestion()
+    answerfeedback.style.color="green";
+    answerfeedback.innerText = "great that was the correct answer"
     score++
-    scorebox.innerText = "Score:  " +score+  "   out of 10"
-
-  
-
+    scorebox.innerText = "Score:  " + score + "   out of 10"
   }
 
-  else{
+  else {
+    currentQuestionsIndex++
+    setNextQuestion()
+    answerfeedback.style.color="red";
     // if user gets the wrong answer then 5 seconds is deducted.
-    alert("sorry that was wrong 5 seconds have been deducted")
-      countdown -= 5;
+    answerfeedback.innerText = "sorry that was wrong 5 seconds have been deducted"
+    countdown -= 5;
+
+
+
+  }
+  
+  //get highscore
+  var highscores = JSON.parse(localStorage.getItem("highscores"));
+
+  var scoreboard = {
+
+    score : score
   
   }
 
-  console.log(selectAnswer);
+  
+
+  //console.log(selectAnswer);
 
 }
 
 
-   //console.log(selectAnswer)
+
+
+
 
 
 

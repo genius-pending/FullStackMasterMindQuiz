@@ -36,23 +36,21 @@ body {background-image:url("mastermind.jpg");
       text-shadow: 0 0 20px #ff005b;
   }
 
-  .introduction{
+.introduction{
       display: block;
       margin: 80px;
       padding: 0;
       text-align: center;
-      color: red;
+      color: orange;
       text-transform: uppercase;
       text-shadow: 0 0 20px #ff005b;
-      filter: brightness(40px)
+      filter: brightness(40px);
       
   }
 
-
-
-    .btn{
+.btn{
         border: none;
-        background-color: hsl(360, 91%, 36%);
+        background-color:orange;
         border-radius: 25px;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px 0px rgba(0, 0, 0, 0.2) 0px 1px 1px
           0px;
@@ -94,9 +92,10 @@ body {background-image:url("mastermind.jpg");
     .hide{
       display: none;
     }
-    .btn2{
-      background-color: green;
+   
     }
+
+
 
 
    
