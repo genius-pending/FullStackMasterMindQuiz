@@ -20,7 +20,7 @@ var currentQuestionsIndex = 0;
 var user_score = 0;
 var countdown = 60;
 
-
+// made a function for when the game ends due to the timer reaching 0 seconds
 function gameOver() {
   alert("Time is up!");
   clearInterval(timer);
@@ -31,7 +31,7 @@ function gameOver() {
   currentQuestionsIndex = 0;
   highScoreContainer.classList.remove("hide");
 }
-
+// added event timers for the buttons added the functions to the clicks 
 startButton.addEventListener("click", startGame);
 tryAgain.addEventListener("click", tryAgainfnc);
 
@@ -43,7 +43,7 @@ function tryAgainfnc()
   currentQuestionsIndex = 0;
   startGame();
 }
-
+// function created once the start button is pressed 
 function startGame() {
   answerfeedback.innerText = "";
   document.getElementById("Name").classList.remove("hide");
@@ -89,12 +89,13 @@ function showQuestion(question) {
   A3.addEventListener("click", selectAnswer);
   A4.addEventListener("click", selectAnswer);
 }
-
+// made a function so that the computer can identify the correct answer based on the users button click
 function selectAnswer(e) {
   const buttonAnswer = e.target.innerText;
   const currentQuestion = questions[currentQuestionsIndex];
   const answerText = currentQuestion.answers[currentQuestion.correctAnswer];
-
+  
+// feedback system to determine what action should be taken based on the answer being correct or incorrect
   currentQuestionsIndex++;
   if (buttonAnswer == answerText) {
     answerfeedback.style.color = "green";
@@ -108,7 +109,7 @@ function selectAnswer(e) {
   setNextQuestion();
   //console.log(user_score);
 }
-
+// added a high score feature to the code 
 var highscores = JSON.parse(localStorage.getItem("highscores"));
 
 const scoreview = document.getElementById("user-scores");
@@ -150,7 +151,7 @@ function saveScorefnc()
   console.log(localStorage);
 }
 
-
+// made a comparison of the high scores so the highest score always gets to the top
 function compare(a, b) {
   if (a.score < b.score) return 1;
   if (b.score < a.score) return -1;
