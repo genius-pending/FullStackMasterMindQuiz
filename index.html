@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="style.css" media="screen">
 
 </head>
-<body onload="highFunction();">
+<body>
     
         <p class='masthead-intro'>fullstack programming</p>
         <h1 class='masthead-heading'>Mastermind Quiz</h1>
@@ -29,11 +29,10 @@
                 <br>Rules:<br>There are 10 questions in total on HTML,CSS,and Javascript  <br>
                 You must get all 10 right to become a coding mastermind  <br>You have 60 seconds, each time you get a question wrong the timer will decrease by 5 seconds <br>
                 The quiz ends when the time elapses or you answer all 10 questions. <br>
-                At the end of the quiz your score will be revealed  <br>good luck </p> </marquee>
-                
-
+                At the end of the quiz your score will be revealed  <br>good luck </p>
+        </div>
           <button id="startquiz" class="btn">Start Quiz</button>
-          <button id="highscore" class="btn" class="hide">High Score</button>
+          
 
               <div class="container">
                  <div id="question-container" class="hide">
@@ -47,8 +46,8 @@
                  
                     
                      <p id="timer" class="btn"></p>
-                     <p id="answerfeedback" class="answerfeedback"></p>
-                  <p id="scorebox">Score : </p>
+                     <p id="answerfeedback"></p>
+                  
                  </div>
               </div>
 
@@ -56,10 +55,24 @@
                <div id="highscore-container" class="hide">
                <div class="row justify-content-center mt-5 pt-3 pb-3">
                    <div class="col-10 col-lg-8">
-                    <h2>Highscore!</h2>
+                    <h2>Game Over</h2>
+                    <p id="scorebox">Score : </p>
+                    <p>Enter your name below and save your score</p>
+
                        <p id="user-score"> </p>
+                       <div>
+                        <input type="text" id= "Name" placeholder="Enter Name" class="btn" >
+                        </div>
+                       <button class="btn" id="Try Again">Try Again</button>
+                       <button class="btn" id="View Scores" type="submit">View Scores</button>
                        <form class="form-group">
                       </form>
+                   </div>
+
+               </div>
+               <div>
+                   <div id="list-scores" class="col-10 col-lg-8">
+
                    </div>
                </div>
             </div>

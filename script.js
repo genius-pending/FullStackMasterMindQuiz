@@ -1,186 +1,161 @@
 // connected all the elements from my html file to javascript so that javacript can communicate with my html file
-var startButton = document.getElementById("startquiz")
-var questionContainerEL = document.getElementById("question-container")
-var questionEl = document.getElementById("question")
-var scoreBox = document.getElementById("scorebox")
-var A1 = document.getElementById('A')
-var A2 = document.getElementById('B')
-var A3 = document.getElementById('C')
-var A4 = document.getElementById('D')
-var tryAgain = document.getElementById("Try Again")
-var highScoreContainer = document.getElementById("highscore-container")
-var answerfeedback = document.getElementById("answerfeedback")
+let startButton = document.getElementById("startquiz");
+let questionContainerEL = document.getElementById("question-container");
+let questionEl = document.getElementById("question");
+let scoreBox = document.getElementById("scorebox");
+let A1 = document.getElementById('A');
+let A2 = document.getElementById('B');
+let A3 = document.getElementById('C');
+let A4 = document.getElementById('D');
+let tryAgain = document.getElementById("Try Again");
+let highScoreContainer = document.getElementById("highscore-container");
+var answerfeedback = document.getElementById("answerfeedback");
+var score_container = document.getElementById("list-scores");
+
+var timer = false;
 
 
-var shuffledQuestions
-var currentQuestionsIndex = 0
-var score = 0
-
-
-//used the below function to hide the highscores button until the game is completed
-// once game completed user can enter name to view scores or replay.
+var shuffledQuestions;
+var currentQuestionsIndex = 0;
+var user_score = 0;
+var countdown = 60;
 
 
 function gameOver() {
+  alert("Time is up!");
   clearInterval(timer);
-  questionContainerEL.classList.add("hide")
-  scoreBox.innerText = "You scored:  " + score + "   out of 10"
-  answerfeedback.innerText = ""
-  highScoreContainer.classList.remove("hide")
+  countdown = 60;
+  questionContainerEL.classList.add("hide");
+  scoreBox.innerText = "You scored:  " + user_score + "   out of 10";
+  answerfeedback.innerText = "";
+  currentQuestionsIndex = 0;
+  highScoreContainer.classList.remove("hide");
 }
 
-// added an event listener where by once the start button is clicked it disappears and then the actual quiz and timer pop for the user 
-
 startButton.addEventListener("click", startGame);
+tryAgain.addEventListener("click", tryAgainfnc);
 
 
-
-tryAgain.addEventListener("click", startGame);
-
-  console.log(tryAgain)
-
-
-
-//console.log(startButton)
-
-
+function tryAgainfnc()
+{
+  clearInterval(timer);
+  countdown = 60;
+  currentQuestionsIndex = 0;
+  startGame();
+}
 
 function startGame() {
-  startButton.classList.add("hide")
-  score = 0
-  highScoreContainer.classList.add("hide")
-  questionContainerEL.classList.remove("hide")
+  answerfeedback.innerText = "";
+  document.getElementById("Name").classList.remove("hide");
+  document.getElementById("View Scores").classList.remove("hide");
+  score_container.classList.add("hide");
+  startButton.classList.add("hide");
+  user_score = 0;
+  highScoreContainer.classList.add("hide");
+  questionContainerEL.classList.remove("hide");
 
+  shuffledQuestions = questions.sort(() => Math.random() - .5);
+  setNextQuestion();
 
-  // added a function to generate questions randomly making it harder for the user to memorise 
-  //the order of question if they want to retake the quiz
+  timer = setInterval(() => {
+    countdown = countdown - 1;
 
-  shuffledQuestions = questions.sort(() => Math.random() - .5)
-  
-  
-  setNextQuestion()
-
-  // timer set for 60 seconds once timer elapses an alertbox pops up advising user time is up I then changed the inner html of the start button
-  // to try again so it restarts the quiz I also populate a high scores chart and a prompt to enter a name that is displayed against the high score
-
-  var countdown = 60
-  var timer = setInterval(() => {
-    countdown = countdown - 1
-    //console.log(countdown);
-    document.getElementById("timer").innerHTML = "00:" + countdown
-    if (countdown < 0) {
-      clearInterval(timer);
-      alert("Time is up!")
-      gameOver()
+    document.getElementById("timer").innerHTML = "00:" + countdown;
+    if (countdown < 0 || countdown === 0) {
+      gameOver();
     }
-  }, 1000);
-
-
-
-
-
-
-  //console.log('started')
-
+  }, 950);
 
 }
 
 function setNextQuestion() {
-  showQuestion(shuffledQuestions[currentQuestionsIndex])
+  showQuestion(shuffledQuestions[currentQuestionsIndex]);
 
   if (currentQuestionsIndex >= questions.length - 1) {
-    gameOver()
-
+    gameOver();
   }
-  //console.log(setNextQuestion)
 }
 
 function showQuestion(question) {
-  questionEl.innerText = question.question
+  questionEl.innerText = question.question;
 
-  A1.innerText = question.answers[0]
-  A2.innerText = question.answers[1]
-  A3.innerText = question.answers[2]
-  A4.innerText = question.answers[3]
+  A1.innerText = question.answers[0];
+  A2.innerText = question.answers[1];
+  A3.innerText = question.answers[2];
+  A4.innerText = question.answers[3];
 
   A1.addEventListener("click", selectAnswer);
   A2.addEventListener("click", selectAnswer);
   A3.addEventListener("click", selectAnswer);
   A4.addEventListener("click", selectAnswer);
-
 }
 
 function selectAnswer(e) {
-  console.log(e)
-  var buttonAnswer = e.target.innerText
-  var currentQuestion = questions[currentQuestionsIndex];
-  var answerText = currentQuestion.answers[currentQuestion.correctAnswer];
+  const buttonAnswer = e.target.innerText;
+  const currentQuestion = questions[currentQuestionsIndex];
+  const answerText = currentQuestion.answers[currentQuestion.correctAnswer];
+
+  currentQuestionsIndex++;
   if (buttonAnswer == answerText) {
-    currentQuestionsIndex++
-    setNextQuestion()
     answerfeedback.style.color = "green";
-    answerfeedback.innerText = "great that was the correct answer"
-    score++
-    
-  }
-
-  else {
-    currentQuestionsIndex++
-    setNextQuestion()
-    answerfeedback.innerText = "sorry that was wrong 5 seconds have been deducted"
+    answerfeedback.innerText = "great that was the correct answer";
+    user_score++;
+  } else {
+    answerfeedback.innerText = "sorry that was wrong 5 seconds have been deducted";
     answerfeedback.style.color = "red";
-    // if user gets the wrong answer then 5 seconds is deducted.
     countdown -= 5;
-    
-    
-
-
-
   }
+  setNextQuestion();
+  //console.log(user_score);
+}
 
-  //gets player's name and score and sends to local storage
+var highscores = JSON.parse(localStorage.getItem("highscores"));
 
-  var saveScore = document.getElementById("Save Score")
-  saveScore.addEventListener("click", highScores)
+const scoreview = document.getElementById("user-scores");
+const viewScore = document.getElementById("View Scores");
 
-  
+viewScore.addEventListener("click", GetScore);
+viewScore.addEventListener("click", highScores);
 
-  function highScores() {
+
+function highScores() {
   let userName = document.getElementById("Name").value;
-  
-  localStorage.setItem("Name", userName);
-  localStorage.setItem("score", score.JSON.stringify(score));
+
+  if(highscores == undefined) {
+    highscores = [];
   }
 
-  console.log(highScores)
+  highscores.push({'score': user_score, 'username': userName});
 
-  var highscores = JSON.parse(localStorage.getItem("highscores"));
+  localStorage["highscores"] = JSON.stringify(highscores);
+  document.getElementById("Name").classList.add("hide");
+  document.getElementById("View Scores").classList.add("hide");
+  score_container.classList.remove("hide");
 
- 
+  highscores.sort(compare);
 
-  //console.log(selectAnswer);
-
-  var scoreview= document.getElementById("user-scores")
-  var viewScore= document.getElementById("View Scores")
-  viewScore.addEventListener("click", GetScore)
-
-  function GetScore(){
-    saveScore.classList.add("hide")
-    viewScore.classList.add("hide")
-    userName.classlist.add("hide")
-    h2.innerHTML= "HighScores"
-    p.classlist.add("hide")
-    scoreview.innerText= JSON.parse(localStorage.getItem(userName + score))
-
+  for (const item in highscores) {
+    if(highscores[item].username !== "" && highscores[item].score !== "") {
+      score_container.insertAdjacentHTML('beforeend', "<p>"+ highscores[item].username + " - " + highscores[item].score+ "</p>");
+    }
   }
+}
+
+function GetScore(){
 
 }
 
+function saveScorefnc()
+{
+  console.log(localStorage);
+}
 
 
+function compare(a, b) {
+  if (a.score < b.score) return 1;
+  if (b.score < a.score) return -1;
 
+  return 0;
+}
 
-
-
-
-
+//nums.sort(compare);
