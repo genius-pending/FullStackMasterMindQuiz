@@ -5,4 +5,4 @@ Now that I have the basic quiz I can add more or even harder question at a later
 If anyone wants to add any more questions to it then please do saves me a job loll. Just dont mess up my code I spent a few hours trying to get this together also have a play about with it take the quiz.
 
 
-![](https://github.com/genius-pending/FullStackMasterMindQuiz/blob/main/screenshot.png)
+![](https://github.com/genius-pending/FullStackMasterMindQuiz/blob/main/assets/screenshot.png)
