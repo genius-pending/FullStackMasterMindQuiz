@@ -115,7 +115,7 @@ var highscores = JSON.parse(localStorage.getItem("highscores"));
 const scoreview = document.getElementById("user-scores");
 const viewScore = document.getElementById("View Scores");
 
-viewScore.addEventListener("click", GetScore);
+
 viewScore.addEventListener("click", highScores);
 
 
@@ -142,9 +142,7 @@ function highScores() {
   }
 }
 
-function GetScore(){
 
-}
 
 function saveScorefnc()
 {
